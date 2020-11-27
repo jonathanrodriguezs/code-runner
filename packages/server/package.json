@@ -1,7 +1,7 @@
 {
-  "name": "nest-babel-starter",
+  "name": "code-buster-server",
   "version": "1.0.0",
-  "description": "Nest Babel starter repository",
+  "private": true,
   "scripts": {
     "format": "prettier --write \"**/*.js\"",
     "start": "babel-node index.js",

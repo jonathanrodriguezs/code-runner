@@ -1,0 +1,16 @@
+{
+  "name": "code-buster",
+  "private": true,
+  "scripts": {
+    "build:client": "yarn --cwd packages/client build",
+    "start:client": "yarn --cwd packages/client start",
+    "start:server": "yarn --cwd packages/server start",
+    "start": "concurrently \"yarn start:client\" \"yarn start:server\""
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^5.0.0"
+  }
+}
