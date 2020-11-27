@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import BubbleChartIcon from '@material-ui/icons/BubbleChart'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1
+  },
+  secondary: {
+    color: '#ababab'
   }
 }))
 
@@ -41,8 +45,12 @@ function ButtonAppBar({ onBeautiyCode }) {
             <BubbleChartIcon />
             Crespo
           </Typography>
-          <Button color='inherit' onClick={onBeautiyCode}>
+          <Button onClick={onBeautiyCode} className={classes.secondary}>
             Prettify
+          </Button>
+          <Button color='inherit'>
+            Execute
+            <PlayArrowIcon />
           </Button>
         </Toolbar>
       </AppBar>
