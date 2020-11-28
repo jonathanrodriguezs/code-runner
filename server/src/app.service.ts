@@ -18,7 +18,11 @@ export class AppService {
             // exec(`docker rm ${id}`); // kill the container
             resolve(stdout + `\nTimeout after ${timeout}ms`);
           } else reject(error.message.split('\n').slice(1).join('\n'));
-        } else resolve(stdout);
+        } else {
+          console.log(cmd);
+          console.log(stdout);
+          resolve(stdout);
+        }
       });
     });
   }

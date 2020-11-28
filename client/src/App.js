@@ -18,10 +18,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'black',
     color: 'white',
     height: '100vh',
-    // fontSize: 13,
     padding: 20
-    // boxSizing: 'border-box'
-    // fontFamily: 'Fira Code'
   },
   '.terminal > *': {
     whiteSpace: 'pre-wrap'
@@ -36,8 +33,8 @@ function App() {
     new Terminal({
       cursorBlink: true,
       fontFamily: 'Fira Code',
-      letterSpacing: -7,
       fontSize: 13.5
+      // tabStopWidth: 2
     })
   )
 
@@ -85,7 +82,7 @@ function App() {
   const handleExecute = event => {
     event.preventDefault()
     terminal.clear()
-    setOutput('> node index.js')
+    setOutput('$ node index.js')
     axios
       .post('/code', { code })
       .then(({ data }) => {

@@ -19,7 +19,7 @@ export class AppController {
       flag: 'w',
     });
 
-    const command = `docker run --rm -m 64M --memory-swap 64M -v ${directory}:/code -w /code node:15.3.0-alpine3.10 node index.js`;
+    const command = `docker run --rm -m 64M --memory-swap 64M -v ${directory}:/code -w /code -t node:15.3.0-alpine3.10 node index.js`;
     return await this.appService.dockerRunAndCleanup(command, 15000);
   }
 }
