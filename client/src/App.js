@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     width: '40vw',
     backgroundColor: 'black',
     color: 'white',
-    height: '100vh',
+    height: '90vh',
     padding: 20
   },
   '.terminal > *': {
@@ -32,9 +32,8 @@ function App() {
   const [terminal, setTerminal] = useState(
     new Terminal({
       cursorBlink: true,
-      fontFamily: 'Fira Code',
+      fontFamily: `'Fira Code', monospace`,
       fontSize: 13.5
-      // tabStopWidth: 2
     })
   )
 
@@ -98,7 +97,7 @@ function App() {
       <ButtonAppBar onBeautiyCode={handleBeautifyCode} onExecute={handleExecute} />
       <div className={classes.root}>
         <ControlledEditor
-          height='100vh'
+          height='90vh'
           width='60vw'
           theme='theme'
           value={code}
@@ -106,7 +105,7 @@ function App() {
           onChange={handleChange}
         />
         <div className={classes.terminal}>
-          <div id='terminal'></div>
+          <div id='terminal' style={{ height: '90vh' }}></div>
         </div>
       </div>
     </>
