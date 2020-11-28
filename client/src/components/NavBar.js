@@ -43,7 +43,7 @@ function ButtonAppBar({ onBeautiyCode, onExecute }) {
           </IconButton>
           <Typography variant='h6' className={classes.title}>
             <BubbleChartIcon />
-            Crespo <small>Node 15.3.0</small>
+            Crespo
           </Typography>
           <Button onClick={onBeautiyCode} className={classes.secondary}>
             Prettify

@@ -5,6 +5,9 @@ import ButtonAppBar from './components/NavBar'
 import { js as beautify } from 'js-beautify'
 import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
+import { Terminal } from 'xterm'
+import { FitAddon } from 'xterm-addon-fit'
+import 'xterm/css/xterm.css'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,11 +17,14 @@ const useStyles = makeStyles(theme => ({
     width: '40vw',
     backgroundColor: 'black',
     color: 'white',
-    height: 'calc(90vh - 40px)',
-    fontSize: 13,
-    whiteSpace: 'pre-wrap',
-    padding: 20,
-    fontFamily: 'Fira Code'
+    height: '100vh',
+    // fontSize: 13,
+    padding: 20
+    // boxSizing: 'border-box'
+    // fontFamily: 'Fira Code'
+  },
+  '.terminal > *': {
+    whiteSpace: 'pre-wrap'
   }
 }))
 
@@ -26,16 +32,41 @@ function App() {
   const classes = useStyles()
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
+  const [terminal, setTerminal] = useState(
+    new Terminal({
+      cursorBlink: true,
+      fontFamily: 'Fira Code',
+      letterSpacing: -7,
+      fontSize: 13.5
+    })
+  )
+
+  function initializeTerminal() {
+    const fitAddon = new FitAddon()
+    terminal.loadAddon(fitAddon)
+    terminal.open(document.getElementById('terminal'))
+    fitAddon.fit()
+    terminal.write('Running on Node.js \x1B[1;3;31m15.3.0-alpine\x1B[0m\r\n')
+    setTerminal(terminal)
+  }
 
   useEffect(() => {
     monaco
       .init()
       .then(monaco => {
         monaco.editor.defineTheme('theme', theme)
-        monaco.editor.getModel().updateOptions({ tabSize: 4 })
+        initializeTerminal()
       })
-      .catch(console.error)
+      .catch(error => {
+        console.error('[Error intializing Monaco Editor]: ' + error)
+      })
   }, [])
+
+  useEffect(() => {
+    if (output) {
+      terminal.writeln(output)
+    }
+  }, [output])
 
   const handleChange = (_, value) => {
     setCode(value)
@@ -51,7 +82,9 @@ function App() {
     setCode(formatted)
   }
 
-  const handleExecute = () => {
+  const handleExecute = event => {
+    event.preventDefault()
+    terminal.clear()
     setOutput('> node index.js')
     axios
       .post('/code', { code })
@@ -59,7 +92,7 @@ function App() {
         setOutput(data)
       })
       .catch(error => {
-        console.log(error.data)
+        console.log('[Error executing code]: ' + error)
       })
   }
 
@@ -68,14 +101,16 @@ function App() {
       <ButtonAppBar onBeautiyCode={handleBeautifyCode} onExecute={handleExecute} />
       <div className={classes.root}>
         <ControlledEditor
-          height='90vh'
+          height='100vh'
           width='60vw'
           theme='theme'
           value={code}
           language='javascript'
           onChange={handleChange}
         />
-        <div className={classes.terminal}>{output}</div>
+        <div className={classes.terminal}>
+          <div id='terminal'></div>
+        </div>
       </div>
     </>
   )
