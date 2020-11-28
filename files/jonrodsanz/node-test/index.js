@@ -12,5 +12,6 @@ const binarySearch = (arr, start, end, num) => {
   return -1
 }
 
-console.log(binarySearch(arr, 0, arr.length - 1, 13))
-console.log(binarySearch(arr, 0, arr.length - 1, 11))
+console.log('Hola mundo')
+// console.log(binarySearch(arr, 0, arr.length - 1, 13))
+// console.log(binarySearch(arr, 0, arr.length - 1, 11))
