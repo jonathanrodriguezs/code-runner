@@ -35,13 +35,6 @@ function App() {
         monaco.editor.getModel().updateOptions({ tabSize: 4 })
       })
       .catch(console.error)
-
-    axios
-      .get('/code')
-      .then(({ data }) => {
-        setOutput(data)
-      })
-      .catch(console.error)
   }, [])
 
   const handleChange = (_, value) => {
@@ -58,16 +51,28 @@ function App() {
     setCode(formatted)
   }
 
+  const handleExecute = () => {
+    setOutput('> node index.js')
+    axios
+      .post('/code', { code })
+      .then(({ data }) => {
+        setOutput(data)
+      })
+      .catch(error => {
+        console.log(error.data)
+      })
+  }
+
   return (
     <>
-      <ButtonAppBar onBeautiyCode={handleBeautifyCode} />
+      <ButtonAppBar onBeautiyCode={handleBeautifyCode} onExecute={handleExecute} />
       <div className={classes.root}>
         <ControlledEditor
           height='90vh'
           width='60vw'
-          language='javascript'
           theme='theme'
           value={code}
+          language='javascript'
           onChange={handleChange}
         />
         <div className={classes.terminal}>{output}</div>

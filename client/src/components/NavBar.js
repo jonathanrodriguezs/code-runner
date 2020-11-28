@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function ButtonAppBar({ onBeautiyCode }) {
+function ButtonAppBar({ onBeautiyCode, onExecute }) {
   const classes = useStyles()
 
   return (
@@ -48,7 +48,7 @@ function ButtonAppBar({ onBeautiyCode }) {
           <Button onClick={onBeautiyCode} className={classes.secondary}>
             Prettify
           </Button>
-          <Button color='inherit'>
+          <Button onClick={onExecute} color='inherit'>
             Execute
             <PlayArrowIcon />
           </Button>
