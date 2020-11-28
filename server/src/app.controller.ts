@@ -6,7 +6,7 @@ import * as path from 'path';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('/code')
   async getHello(): Promise<string> {
     const directory = path.resolve(
       __dirname,

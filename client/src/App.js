@@ -4,6 +4,7 @@ import theme from './themes/Oceanic Next.json'
 import ButtonAppBar from './components/NavBar'
 import { js as beautify } from 'js-beautify'
 import { makeStyles } from '@material-ui/core/styles'
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,13 +14,18 @@ const useStyles = makeStyles(theme => ({
     width: '40vw',
     backgroundColor: 'black',
     color: 'white',
-    height: '90vh'
+    height: 'calc(90vh - 40px)',
+    fontSize: 13,
+    whiteSpace: 'pre-wrap',
+    padding: 20,
+    fontFamily: 'Fira Code'
   }
 }))
 
 function App() {
   const classes = useStyles()
   const [code, setCode] = useState('')
+  const [output, setOutput] = useState('')
 
   useEffect(() => {
     monaco
@@ -27,6 +33,13 @@ function App() {
       .then(monaco => {
         monaco.editor.defineTheme('theme', theme)
         monaco.editor.getModel().updateOptions({ tabSize: 4 })
+      })
+      .catch(console.error)
+
+    axios
+      .get('/code')
+      .then(({ data }) => {
+        setOutput(data)
       })
       .catch(console.error)
   }, [])
@@ -57,7 +70,7 @@ function App() {
           value={code}
           onChange={handleChange}
         />
-        <div className={classes.terminal}></div>
+        <div className={classes.terminal}>{output}</div>
       </div>
     </>
   )

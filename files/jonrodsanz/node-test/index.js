@@ -1,17 +1,83 @@
-const arr = [2, 4, 6, 6, 8, 8, 9, 10, 13, 15, 17, 21, 24, 26, 28, 36, 58, 78, 90]
+let config = null
 
-//binary search function
-//returns the element index if found otherwise -1
-const binarySearch = (arr, start, end, num) => {
-  const mid = start + Math.floor((end - start) / 2)
-  if (start <= end) {
-    if (arr[mid] === num) return mid
-    if (num < arr[mid]) return binarySearch(arr, start, mid - 1, num)
-    if (num > arr[mid]) return binarySearch(arr, mid + 1, end, num)
+class Configuration {
+  constructor(mongoURI, mysqlURI, token, connections) {
+    if (config === null) {
+      this.mongo = { URI: mongoURI, token }
+      this.mysql = { URI: mysqlURI }
+      this.connections = connections
+      config = this
+    } else {
+      return config
+    }
   }
-  return -1
+
+  setConnections(connections) {
+    this.connections = connections
+  }
 }
 
-console.log('Hola mundo')
-// console.log(binarySearch(arr, 0, arr.length - 1, 13))
-// console.log(binarySearch(arr, 0, arr.length - 1, 11))
+class MongoConnection {
+  constructor(url, buffer, token) {
+    this.url = url
+    this.buffer = buffer
+    this.token = token
+  }
+}
+
+class MySQLConnection {
+  constructor(url, username, password) {
+    this.url = url
+    this.username = username
+    this.password = password
+  }
+}
+
+class MongoFactory {
+  createMongoConnection(type) {
+    const { mongo } = new Configuration()
+    switch (type) {
+      case 'protected':
+        return new MongoConnection(mongo.URI, 256, mongo.token)
+      default:
+        return new MongoConnection(mongo.URI, 128)
+    }
+  }
+}
+
+class MySQLFactory {
+  createMySQLConnection(type) {
+    const { mysql } = new Configuration()
+    switch (type) {
+      case 'protected':
+        return new MySQLConnection(mysql.URI, mysql.username, mysql.password)
+      default:
+        return new MySQLConnection(mysql.URI, 'root', 'root')
+    }
+  }
+}
+
+;(function () {
+  new Configuration(
+    'mongodb://webscriptero.com:27017/sagas',
+    'jdbc:mysql://webscriptero:33060/sagas',
+    'secret-mongodb-token'
+  )
+  const mongoFactory = new MongoFactory()
+  const mysqlFactory = new MySQLFactory()
+
+  const createDBConnection = (type, secure) => {
+    switch (type) {
+      case 'mongo':
+        return mongoFactory.createMongoConnection(secure)
+      case 'mysql':
+        return mysqlFactory.createMySQLConnection(secure)
+    }
+  }
+
+  const mysql = createDBConnection('mysql')
+  const mongo = createDBConnection('mongo', 'protected')
+
+  config.setConnections({ mysql, mongo })
+  console.log(config.connections)
+})()
