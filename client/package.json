@@ -54,5 +54,6 @@
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
     ]
-  }
+  },
+  "proxy": "http://localhost:4001"
 }
