@@ -11,7 +11,7 @@ export class AppController {
   getCode() {
     const directory = path.resolve(
       __dirname,
-      './../../files/jonrodsanz/node-test',
+      './../files/jonrodsanz/node-test',
     );
     const result = fs.readFileSync(path.join(directory, 'index.js'), 'utf8');
     return result;
@@ -22,7 +22,7 @@ export class AppController {
     try {
       const directory = path.resolve(
         __dirname,
-        './../../files/jonrodsanz/node-test',
+        './../files/jonrodsanz/node-test',
       );
       fs.writeFileSync(path.join(directory, 'index.js'), body.code, {
         encoding: 'utf8',
