@@ -16,13 +16,15 @@ export class AppService {
         if (error) {
           if (error.killed) {
             // exec(`docker rm ${id}`); // kill the container
-            resolve(stdout + `\nTimeout after ${timeout}ms`);
-          } else reject(error.message.split('\n').slice(1).join('\n'));
+            reject(stdout + `\nTimeout after ${timeout}ms`);
+          } else {
+            reject(stdout)
+          }
         } else {
-          console.log(cmd);
-          console.log(stdout);
+          console.log({stdout});
           resolve(stdout);
         }
+        reject('Cannot run command' + cmd);
       });
     });
   }

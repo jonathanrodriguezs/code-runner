@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { monaco, ControlledEditor } from '@monaco-editor/react'
-import theme from './themes/Oceanic Next.json'
+import theme from './themes/Merbivore Soft.json'
 import ButtonAppBar from './components/NavBar'
 import { js as beautify } from 'js-beautify'
 import { makeStyles } from '@material-ui/core/styles'
@@ -15,10 +16,10 @@ const useStyles = makeStyles(theme => ({
   },
   terminal: {
     width: '40vw',
-    backgroundColor: 'black',
+    backgroundColor: '#2d2d2d',
     color: 'white',
     height: '90vh',
-    padding: 20
+    padding: '10px 20px'
   },
   '.terminal > *': {
     whiteSpace: 'pre-wrap'
@@ -29,24 +30,29 @@ function App() {
   const classes = useStyles()
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
+  // eslint-disable-next-line
+  const [_, setHistory] = useState('')
   const [terminal, setTerminal] = useState(
     new Terminal({
       cursorBlink: true,
       fontFamily: `'Fira Code', monospace`,
-      fontSize: 13.5
+      fontSize: 14,
+      theme: {
+        background: '#2d2d2d'
+      }
     })
   )
 
-  function initializeTerminal() {
-    const fitAddon = new FitAddon()
-    terminal.loadAddon(fitAddon)
-    terminal.open(document.getElementById('terminal'))
-    fitAddon.fit()
-    terminal.write('Running on Node.js \x1B[1;3;31m15.3.0-alpine\x1B[0m\r\n')
-    setTerminal(terminal)
-  }
-
   useEffect(() => {
+    function initializeTerminal() {
+      const fitAddon = new FitAddon()
+      terminal.loadAddon(fitAddon)
+      terminal.open(document.getElementById('terminal'))
+      fitAddon.fit()
+      terminal.write('Running Node.js \x1B[1;3;31m15.3.0 on alpine (linux based)\x1B[0m\r\n')
+      setTerminal(terminal)
+    }
+
     monaco
       .init()
       .then(monaco => {
@@ -54,13 +60,14 @@ function App() {
         initializeTerminal()
       })
       .catch(error => {
-        console.error('[Error intializing Monaco Editor]: ' + error)
+        console.error('[Error initializing Monaco Editor]: ' + error)
       })
   }, [])
 
   useEffect(() => {
     if (output) {
-      terminal.writeln(output)
+      terminal.writeln(output.toString())
+      setHistory(history => history + '\r\n' + output)
     }
   }, [output])
 
@@ -69,13 +76,15 @@ function App() {
     return value
   }
 
-  const handleBeautifyCode = () => {
+  const handleBeautifyCode = event => {
+    event.preventDefault()
     const formatted = beautify(code, {
       indent_size: 2,
       space_in_empty_paren: true,
       brace_style: 'collapse,preserve-inline'
     })
     setCode(formatted)
+    setOutput('$ js-beautify index.js\r\n> Code has been succesfully formated')
   }
 
   const handleExecute = event => {
