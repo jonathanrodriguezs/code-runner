@@ -3,3 +3,4 @@ Resize component: https://www.npmjs.com/package/react-resizable
 Repl.it evaluation server Docker image: https://github.com/replit/polygott
 Python intellisense on Monaco Editor: https://github.com/microsoft/monaco-editor/issues/421
 Monaco Language Client: https://github.com/TypeFox/monaco-languageclient
+Repl.it open-source: https://github.com/replit-archive/jsrepl/tree/92f5a59c1b43509b1e125c1b409f9602a97011a3
