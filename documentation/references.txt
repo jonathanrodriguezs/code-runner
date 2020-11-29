@@ -2,3 +2,4 @@ Docker in Docker?: https://itnext.io/docker-in-docker-521958d34efd
 Resize component: https://www.npmjs.com/package/react-resizable
 Repl.it evaluation server Docker image: https://github.com/replit/polygott
 Python intellisense on Monaco Editor: https://github.com/microsoft/monaco-editor/issues/421
+Monaco Language Client: https://github.com/TypeFox/monaco-languageclient
