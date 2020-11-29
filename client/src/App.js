@@ -64,7 +64,7 @@ function App() {
 
   useEffect(() => {
     if (output) {
-      terminal.writeln(output)
+      terminal.writeln(output.toString())
       setHistory(history + '\r\n' + output)
     }
   }, [output])
