@@ -13,17 +13,17 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   appBar: {
-    backgroundColor: '#1b262c'
+    backgroundColor: '#30475e'
   },
   menuButton: {
     marginRight: theme.spacing(2)
   },
   title: {
     flexGrow: 1,
-    fontSize: 16.5
+    fontSize: 16
   },
   secondary: {
-    color: '#ababab'
+    color: 'whitesmoke'
   }
 }))
 
@@ -33,7 +33,7 @@ function ButtonAppBar({ onBeautiyCode, onExecute }) {
   return (
     <div className={classes.root}>
       <AppBar position='static' className={classes.appBar}>
-        <Toolbar>
+        <Toolbar classes={classes.toolbar}>
           <IconButton
             edge='start'
             className={classes.menuButton}
@@ -42,12 +42,12 @@ function ButtonAppBar({ onBeautiyCode, onExecute }) {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' className={classes.title}>
-            <span>Code Buster</span>
+            {/* <span>Code Buster</span> */}
             <i
               className='devicon-nodejs-plain'
-              style={{ margin: '0px 7px', color: '#ababab' }}
+              style={{ marginRight: '7px', color: 'whitesmoke' }}
             />
-            <span style={{ color: '#ababab' }}>Node.js v15.3.0</span>
+            <span style={{ color: 'whitesmoke' }}>Node.js v15.3.0</span>
           </Typography>
           <Button onClick={onBeautiyCode} className={classes.secondary}>
             Prettify

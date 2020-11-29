@@ -20,9 +20,6 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     height: '90vh',
     padding: '10px 20px'
-  },
-  '.terminal > *': {
-    whiteSpace: 'pre-wrap'
   }
 }))
 
@@ -79,7 +76,7 @@ function App() {
   const handleBeautifyCode = event => {
     event.preventDefault()
     const formatted = beautify(code, {
-      indent_size: 2,
+      indent_size: 4,
       space_in_empty_paren: true,
       brace_style: 'collapse,preserve-inline'
     })

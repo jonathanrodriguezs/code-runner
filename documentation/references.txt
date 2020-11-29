@@ -1,1 +1,3 @@
 Docker in Docker?: https://itnext.io/docker-in-docker-521958d34efd
+Resize component: https://www.npmjs.com/package/react-resizable
+Repl.it evaluation server Docker image: https://github.com/replit/polygott
