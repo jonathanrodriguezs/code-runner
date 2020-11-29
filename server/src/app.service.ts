@@ -23,6 +23,7 @@ export class AppService {
           console.log(stdout);
           resolve(stdout);
         }
+        reject('Cannot run command' + cmd);
       });
     });
   }
