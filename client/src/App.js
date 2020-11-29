@@ -89,7 +89,7 @@ function App() {
       brace_style: 'collapse,preserve-inline'
     })
     setCode(formatted)
-    setOutput('$ js-beautify index.js\r\n> Code has been succesfully formated')
+    setOutput('$ js-beautify index.js\r\n> The code has been succesfully formated')
   }
 
   const handleExecute = event => {
