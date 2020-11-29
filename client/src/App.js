@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { monaco, ControlledEditor } from '@monaco-editor/react'
-import theme from './themes/Merbivore Soft.json'
+import theme from './themes/Oceanic Next.json'
 import ButtonAppBar from './components/NavBar'
 import { js as beautify } from 'js-beautify'
 import { makeStyles } from '@material-ui/core/styles'
