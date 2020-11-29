@@ -18,10 +18,10 @@ export class AppService {
             // exec(`docker rm ${id}`); // kill the container
             reject(stdout + `\nTimeout after ${timeout}ms`);
           } else {
-            reject(stdout)
+            reject(stdout);
           }
         } else {
-          console.log({stdout});
+          console.log({ stdout });
           resolve(stdout);
         }
         reject('Cannot run command' + cmd);

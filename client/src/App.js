@@ -55,6 +55,14 @@ function App() {
       .then(monaco => {
         monaco.editor.defineTheme('theme', theme)
         initializeTerminal()
+        axios
+          .get('/code')
+          .then(({ data }) => {
+            setCode(data)
+          })
+          .catch(error => {
+            console.error('[Error retrieving source code] ' + error)
+          })
       })
       .catch(error => {
         console.error('[Error initializing Monaco Editor]: ' + error)
