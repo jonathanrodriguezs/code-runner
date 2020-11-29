@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   terminal: {
     width: '40vw',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: 'black',
     color: 'white',
     height: '90vh',
     padding: '10px 20px'
@@ -35,7 +35,7 @@ function App() {
       fontFamily: `'Fira Code', monospace`,
       fontSize: 14,
       theme: {
-        background: '#2d2d2d'
+        background: 'black'
       }
     })
   )
