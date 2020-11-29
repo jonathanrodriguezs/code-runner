@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { monaco, ControlledEditor } from '@monaco-editor/react'
 import theme from './themes/Merbivore Soft.json'
@@ -29,7 +30,8 @@ function App() {
   const classes = useStyles()
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
-  const [history, setHistory] = useState('')
+  // eslint-disable-next-line
+  const [_, setHistory] = useState('')
   const [terminal, setTerminal] = useState(
     new Terminal({
       cursorBlink: true,
@@ -41,16 +43,16 @@ function App() {
     })
   )
 
-  function initializeTerminal() {
-    const fitAddon = new FitAddon()
-    terminal.loadAddon(fitAddon)
-    terminal.open(document.getElementById('terminal'))
-    fitAddon.fit()
-    terminal.write('Running Node.js \x1B[1;3;31m15.3.0 on alpine (linux based)\x1B[0m\r\n')
-    setTerminal(terminal)
-  }
-
   useEffect(() => {
+    function initializeTerminal() {
+      const fitAddon = new FitAddon()
+      terminal.loadAddon(fitAddon)
+      terminal.open(document.getElementById('terminal'))
+      fitAddon.fit()
+      terminal.write('Running Node.js \x1B[1;3;31m15.3.0 on alpine (linux based)\x1B[0m\r\n')
+      setTerminal(terminal)
+    }
+
     monaco
       .init()
       .then(monaco => {
@@ -65,7 +67,7 @@ function App() {
   useEffect(() => {
     if (output) {
       terminal.writeln(output.toString())
-      setHistory(history + '\r\n' + output)
+      setHistory(history => history + '\r\n' + output)
     }
   }, [output])
 

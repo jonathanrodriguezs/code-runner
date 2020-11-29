@@ -21,7 +21,6 @@ export class AppService {
             reject(stdout)
           }
         } else {
-          console.log({cmd});
           console.log({stdout});
           resolve(stdout);
         }
