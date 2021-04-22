@@ -44,10 +44,10 @@ function ButtonAppBar({ onBeautiyCode, onExecute }) {
           <Typography variant='h6' className={classes.title}>
             {/* <span>Code Buster</span> */}
             <i
-              className='devicon-nodejs-plain'
+              className='devicon-python-plain'
               style={{ marginRight: '7px', color: 'whitesmoke' }}
             />
-            <span style={{ color: 'whitesmoke' }}>Node.js v15.3.0</span>
+            <span style={{ color: 'whitesmoke' }}>Python 3.7</span>
           </Typography>
           <Button onClick={onBeautiyCode} className={classes.secondary}>
             Prettify

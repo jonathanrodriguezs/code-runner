@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { monaco, ControlledEditor } from '@monaco-editor/react'
-import theme from './themes/Oceanic Next.json'
+import theme from './themes/Night Owl.json'
 import ButtonAppBar from './components/NavBar'
 import { js as beautify } from 'js-beautify'
 import { makeStyles } from '@material-ui/core/styles'
@@ -46,7 +46,7 @@ function App() {
       terminal.loadAddon(fitAddon)
       terminal.open(document.getElementById('terminal'))
       fitAddon.fit()
-      terminal.write('Running Node.js \x1B[1;3;31m15.3.0 on alpine (linux based)\x1B[0m\r\n')
+      terminal.write('Running Python on alpine (linux based)\x1B[0m\r\n')
       setTerminal(terminal)
     }
 
@@ -94,8 +94,8 @@ function App() {
 
   const handleExecute = event => {
     event.preventDefault()
-    terminal.clear()
-    setOutput('$ node index.js')
+    // terminal.clear()
+    setOutput('$ python main.py')
     axios
       .post('/code', { code })
       .then(({ data }) => {
@@ -115,7 +115,7 @@ function App() {
           width='60vw'
           theme='theme'
           value={code}
-          language='javascript'
+          language='python'
           onChange={handleChange}
         />
         <div className={classes.terminal}>

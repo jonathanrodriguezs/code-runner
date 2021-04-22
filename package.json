@@ -2,10 +2,10 @@
   "name": "code-buster",
   "private": true,
   "scripts": {
-    "build:client": "yarn --cwd client build",
-    "start:client": "yarn --cwd client start",
-    "start:server": "yarn --cwd server start:dev",
-    "start": "concurrently \"yarn start:client\" \"yarn start:server\""
+    "build:aplication": "yarn --cwd aplication build",
+    "start:aplication": "yarn --cwd aplication start",
+    "start:runner": "yarn --cwd runner start:dev",
+    "start": "concurrently \"yarn start:aplication\" \"yarn start:runner\""
   },
   "devDependencies": {
     "concurrently": "^5.0.0"
