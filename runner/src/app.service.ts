@@ -15,7 +15,6 @@ export class AppService {
         }
         if (error) {
           if (error.killed) {
-            // exec(`docker rm ${id}`); // kill the container
             reject(stdout + `\nTimeout after ${timeout}ms`);
           } else {
             reject(stdout);
